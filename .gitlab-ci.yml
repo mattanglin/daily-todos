@@ -1,0 +1,83 @@
+image: cypress/base:8
+
+variables:
+  YARN_CACHE_FOLDER: "$CI_PROJECT_DIR/.yarn-cache"
+
+cache:
+  untracked: true
+  key: "$CI_BUILD_REF_NAME"
+  paths:
+    - node_modules
+    - .yarn-cache
+
+stages:
+  - install
+  - test
+  - build
+  - deploy_stage
+  - deploy_prod
+
+install:
+  stage: install
+  script:
+    - yarn install --frozen-lockfile
+
+
+lint:
+  stage: test
+  script: "yarn lint"
+
+test:
+  stage: test
+  script:
+    # - "yarn run cypress install"
+    - "yarn test"
+  # artifacts:
+  #   paths:
+  #     - cypress/videos
+  #     - cypress/screenshots
+  #   expire_in: 1 week
+
+build:
+  stage: build
+  script:
+    - yarn build
+
+deploy_stage_ci:
+  stage: deploy_stage
+  when: on_success
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy:stage/
+  except:
+    - master
+  script:
+    - yarn global add now
+    - now -t $NOW_TOKEN --target staging
+
+deploy_stage_manual:
+  stage: deploy_stage
+  when: manual
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy:stage/
+  script:
+    - yarn global add now
+    - now -t $NOW_TOKEN --target staging
+      -e API_HOST="https://onehundredfolds-api.mattanglin.now.sh/v1"
+      -e API_CLIENT_ID="${API_CLIENT_ID_STAGE}"
+      -e API_CLIENT_SECRET="${API_CLIENT_SECRET_STAGE}"
+
+# deploy_prod:
+#   stage: deploy_prod
+#   only:
+#     - master
+#     - tags
+#   when: manual
+#   script:
+#     - yarn global add now
+#     - NOW_URL=$(now -t $NOW_TOKEN
+#       -e API_HOST="https://api.onehundredfolds.com/v1"
+#       -e API_CLIENT_ID="${API_CLIENT_ID_PROD}"
+#       -e API_CLIENT_SECRET="${API_CLIENT_SECRET_PROD}")
+#     - now -t $NOW_TOKEN alias $NOW_URL www.onehundredfolds.com

@@ -1,0 +1,1 @@
+export type SubmitFunc<T = {}> = (values: T) => void | Promise<void>;
