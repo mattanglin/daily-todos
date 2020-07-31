@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { ITodo, TodoType, actions } from 'state/todos';
 import style, { addBtnStyle } from './AddTodo.style';
 
-type FormValues = Omit<ITodo, 'todoDone'>;
+type FormValues = Omit<ITodo, 'completed'>;
 
 /**
  * AddTodo button/form

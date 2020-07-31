@@ -2,8 +2,11 @@ import { RootAction } from 'state-types';
 import { createReducer } from 'typesafe-actions';
 import {
   setManaging,
-  doTodo,
+  setEditing,
   addTodo,
+  deleteTodo,
+  updateTodo,
+  completeTodo,
 } from './actions';
 import { ITodosState, TodoType } from './types';
 
@@ -14,7 +17,7 @@ export const defaultInitialState: ITodosState = {
   todos: [{
     title: 'Manage my daily todos',
     type: TodoType.BASIC,
-    todoDone: 0,
+    completed: 0,
   }],
 }
 
@@ -36,7 +39,7 @@ export const getInitialState = (): ITodosState => {
       // TODO: Omit invalid todos?
       const todos = data.todos.map(todo => ({
         ...todo,
-        todoDone: clearTodos ? 0 : todo.todoDone,
+        completed: clearTodos ? 0 : todo.completed,
       }));
 
       return {
@@ -58,6 +61,12 @@ const reducer = createReducer<ITodosState, RootAction>(getInitialState())
   .handleAction(setManaging, (state, action) => ({
     ...state,
     managing: action.payload,
+    editing: !action.payload ? undefined : state.editing,
+  }))
+  .handleAction(setEditing, (state, action) => ({
+    ...state,
+    // Only set if we're already managing
+    editing: state.managing ? action.payload : undefined,
   }))
   .handleAction(addTodo, (state, action) => ({
     ...state,
@@ -65,11 +74,36 @@ const reducer = createReducer<ITodosState, RootAction>(getInitialState())
       ...state.todos,
       {
         ...action.payload,
-        todoDone: 0,
+        completed: 0,
       }
     ]
   }))
-  .handleAction(doTodo, (state, action) => {
+  .handleAction(updateTodo, (state, action) => {
+    const todoIdx = action.payload.idx;
+    const todo = state.todos[todoIdx];
+
+    if (todo) {
+      return {
+        ...state,
+        editing: undefined,
+        todos: [
+          ...state.todos.slice(0, todoIdx),
+          {
+            ...todo,
+            ...action.payload.data,
+          },
+          ...state.todos.slice(todoIdx + 1),
+        ]
+      }
+    }
+
+    return state;
+  })
+  .handleAction(deleteTodo, (state, action) => ({
+    ...state,
+    todos: state.todos.filter((_, idx) => idx !== action.payload),
+  }))
+  .handleAction(completeTodo, (state, action) => {
     const todoIdx = action.payload;
     const todo = state.todos[todoIdx];
 
@@ -80,7 +114,7 @@ const reducer = createReducer<ITodosState, RootAction>(getInitialState())
           ...state.todos.slice(0, todoIdx),
           {
             ...todo,
-            todoDone: todo.todoDone + 1,
+            completed: todo.completed + 1,
           },
           ...state.todos.slice(todoIdx + 1),
         ]

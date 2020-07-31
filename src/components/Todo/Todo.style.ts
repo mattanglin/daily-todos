@@ -10,4 +10,6 @@ export default (theme: Theme): CSSObject => ({
   padding: theme.padding.global * 2,
   fontWeight: 'bold',
   marginBottom: theme.padding.global,
+  display: 'grid',
+  gridTemplateColumns: '1fr 1fr',
 });

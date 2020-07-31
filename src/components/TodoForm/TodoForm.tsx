@@ -5,7 +5,7 @@ import { Form, Input, SubmitButton } from 'components/form';
 import style, { cancelBtnStyle} from './TodoForm.style';
 import { DeepPartial } from 'react-hook-form';
 
-type FormValues = Omit<ITodo, 'todoDone'>;
+type FormValues = Omit<ITodo, 'completed'>;
 
 export interface ITodoFormProps {
   onSubmit?: (values: FormValues) => void;
