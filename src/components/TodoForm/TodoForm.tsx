@@ -25,9 +25,15 @@ const TodoForm: React.FC<ITodoFormProps> = ({
         defaultValues={defaultValues}
         onSubmit={onSubmit}
       >
-        {/* TODO: change to select */}
-        <Input name="type" type="hidden" />
-        <Input name="title" placeholder="Todo Title" />
+        <div className="inner form">
+          {/* TODO: change to select */}
+          <div className="title">
+            <Input name="title" placeholder="Todo Title" />
+          </div>
+          <div className="content">
+            <Input name="type" type="hidden" />
+          </div>
+        </div>
         <div className="actions">
           <Button onClick={onCancel} css={cancelBtnStyle}>
             Cancel
