@@ -50,7 +50,7 @@ const Todo: React.FC<ITodoProps> = ({
             <Button onClick={edit}>
               <FaEdit />
             </Button>
-            <DeleteConfirm onClick={deleteTodo} css={cancelBtn}>
+            <DeleteConfirm onClick={deleteTodo} css={cancelBtn} message={`Delete "${title}" todo?`}>
               <FaTimes />
             </DeleteConfirm>
           </div>

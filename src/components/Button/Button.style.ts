@@ -12,4 +12,5 @@ export default (theme: Theme): CSSObject => ({
   border: 0,
   borderRadius: 4,
   cursor: 'pointer',
+  outline: 'none',
 });
