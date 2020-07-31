@@ -6,7 +6,7 @@ import { FaEdit, FaTimes } from 'react-icons/fa';
 import { Button, DeleteConfirm } from 'components';
 import TodoForm from 'components/TodoForm/TodoForm';
 import { useTodo, TodoDisplay } from './useTodo';
-import style from './Todo.style';
+import style, { cancelBtn } from './Todo.style';
 
 export interface ITodoProps extends ITodo {
   index: number;
@@ -34,9 +34,9 @@ const Todo: React.FC<ITodoProps> = ({
 
   // Condtionally display depending on manage/edit status
   return (
-    <div className="todo">
+    <div className="todo" css={style}>
       {display === TodoDisplay.VIEW && (
-        <div css={style} onClick={complete}>
+        <div className="inner view" onClick={complete}>
           <div className="title">{title}</div>
           <div className="content">
             {completed > 0 && completed}
@@ -44,13 +44,13 @@ const Todo: React.FC<ITodoProps> = ({
         </div>
       )}
       {display === TodoDisplay.MANAGE && (
-        <div css={style}>
+        <div className="inner manage">
           <div className="title">{title}</div>
           <div className="actions">
             <Button onClick={edit}>
               <FaEdit />
             </Button>
-            <DeleteConfirm onClick={deleteTodo}>
+            <DeleteConfirm onClick={deleteTodo} css={cancelBtn}>
               <FaTimes />
             </DeleteConfirm>
           </div>

@@ -12,13 +12,14 @@ const DeleteConfirm: React.FC<IDeleteConfirmProps> = ({
   children,
   message = 'Confirm delete?',
   onClick,
+  ...rest
 }) => {
   const confirmDelete = useCallback(() => {
     window.confirm(message) && onClick();
   }, [message, onClick]);
 
   return (
-    <Button css={style} onClick={confirmDelete}>
+    <Button css={style} onClick={confirmDelete} {...rest}>
       {children}
     </Button>
   );
