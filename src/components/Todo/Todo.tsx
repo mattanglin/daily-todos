@@ -25,10 +25,10 @@ const Todo: React.FC<ITodoProps> = ({
 
   return (
     <div css={style} className="todo" onClick={doTodo}>
-      TODO: {title}
-      {todoDone > 0 && (
-        <div>{todoDone}</div>
-      )}
+      <div>{title}</div>
+      <div>
+        {todoDone > 0 && todoDone}
+      </div>
     </div>
   );
 };

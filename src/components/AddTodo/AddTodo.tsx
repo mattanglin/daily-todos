@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { Form, Input, SubmitButton } from 'components/form';
+import { Button } from 'components';
+import TodoForm from 'components/TodoForm/TodoForm';
 import { useDispatch } from 'react-redux';
 import { ITodo, TodoType, actions } from 'state/todos';
-import style from './AddTodo.style';
+import style, { addBtnStyle } from './AddTodo.style';
 
 type FormValues = Omit<ITodo, 'todoDone'>;
 
@@ -12,6 +13,8 @@ type FormValues = Omit<ITodo, 'todoDone'>;
 const AddTodo: React.FC = () => {
   const dispatch = useDispatch();
   const [isEditing, setEditing] = useState(false);
+  const edit = useCallback(() => setEditing(true), [setEditing]);
+  const cancel = useCallback(() => setEditing(false), [setEditing]);
   const addNewTodo = useCallback((values: FormValues) => {
     dispatch(actions.addTodo(values));
     setEditing(false);
@@ -20,21 +23,15 @@ const AddTodo: React.FC = () => {
   return (
     <div css={style}>
       {isEditing ? (
-        <Form<FormValues>
+        <TodoForm
           defaultValues={{ type: TodoType.BASIC }}
           onSubmit={addNewTodo}
-        >
-          {/* TODO: change to select */}
-          <Input name="type" type="hidden" />
-          <Input name="title" placeholder="Todo Title" />
-          <SubmitButton>
-            Save
-          </SubmitButton>
-        </Form>
+          onCancel={cancel}
+        />
       ) : (
-        <button onClick={() => setEditing(true)}>
+        <Button css={addBtnStyle} onClick={edit}>
           +
-        </button>
+        </Button>
       )}
     </div>
   );

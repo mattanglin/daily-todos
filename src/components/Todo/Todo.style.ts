@@ -9,4 +9,5 @@ export default (theme: Theme): CSSObject => ({
   color: theme.palette.primary,
   padding: theme.padding.global * 2,
   fontWeight: 'bold',
+  marginBottom: theme.padding.global,
 });

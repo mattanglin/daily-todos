@@ -18,7 +18,18 @@ export default (theme: Theme): CSSObject => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: theme.palette.brand,
-    color: theme.palette.brandText,
+    color: theme.palette.brandOffset,
+
+    '& .settings-btn': {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      height: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      paddingLeft: theme.padding.global,
+      paddingRight: theme.padding.global,
+    },
   },
 
   '& .navigation': {

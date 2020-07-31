@@ -15,7 +15,7 @@ export interface ITodo {
 }
 
 export interface ITodosState {
-  editing: boolean;
+  managing: boolean;
   title: string;
   // TODO: store as UNIX Epoch time for space
   todaysDate: string;

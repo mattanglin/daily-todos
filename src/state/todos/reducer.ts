@@ -1,12 +1,14 @@
 import { RootAction } from 'state-types';
 import { createReducer } from 'typesafe-actions';
 import {
-  doTodo, addTodo,
+  setManaging,
+  doTodo,
+  addTodo,
 } from './actions';
 import { ITodosState, TodoType } from './types';
 
 export const defaultInitialState: ITodosState = {
-  editing: false,
+  managing: false,
   title: 'Daily Todo List',
   todaysDate: new Date().toISOString(),
   todos: [{
@@ -38,7 +40,7 @@ export const getInitialState = (): ITodosState => {
       }));
 
       return {
-        editing: todos.length === 0,
+        managing: todos.length === 0,
         title: data.title,
         todaysDate: new Date().toISOString(),
         todos,
@@ -53,6 +55,10 @@ export const getInitialState = (): ITodosState => {
 
 // Reducer
 const reducer = createReducer<ITodosState, RootAction>(getInitialState())
+  .handleAction(setManaging, (state, action) => ({
+    ...state,
+    managing: action.payload,
+  }))
   .handleAction(addTodo, (state, action) => ({
     ...state,
     todos: [

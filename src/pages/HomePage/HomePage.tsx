@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Container } from 'components';
 import Todo from 'components/Todo/Todo';
 import AddTodo from 'components/AddTodo/AddTodo';
-import { RootState } from 'state-types';
+import { selectors } from 'state/todos';
 import { CSSObject } from '@emotion/core';
 import { Theme } from 'theme';
 
@@ -12,7 +12,8 @@ const style = (theme: Theme): CSSObject => ({
 });
 
 const HomePage = () => {
-  const todos = useSelector((state: RootState) => state.todos.todos);
+  const isManaging = useSelector(selectors.getManaging);
+  const todos = useSelector(selectors.getTodos);
 
   return (
     <Container>
@@ -25,8 +26,7 @@ const HomePage = () => {
         {todos.map((todo, index) => (
           <Todo key={index} {...todo} index={index} />
         ))}
-        {/* TODO: Conditionally render based on editing */}
-        <AddTodo />
+        {isManaging && <AddTodo />}
       </div>
     </Container>
   )

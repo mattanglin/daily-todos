@@ -7,3 +7,4 @@ export { default as Layout } from './Layout/Layout';
 export { default as Container } from './Container/Container';
 
 // Common Components
+export { default as Button } from './Button/Button';
