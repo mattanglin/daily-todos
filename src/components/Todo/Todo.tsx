@@ -1,12 +1,11 @@
-import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { actions, selectors } from 'state/todos';
+import React from 'react';
 import { ITodo } from 'state/todos';
-import { FaEdit, FaTimes } from 'react-icons/fa';
+import { FaEdit, FaEraser, FaTimes } from 'react-icons/fa';
 import { Button, DeleteConfirm } from 'components';
 import TodoForm from 'components/TodoForm/TodoForm';
 import { useTodo, TodoDisplay } from './useTodo';
-import style, { cancelBtn } from './Todo.style';
+import TodoComplete from './TodoComplete';
+import style, { deleteBtn, resetBtn } from './Todo.style';
 
 export interface ITodoProps extends ITodo {
   index: number;
@@ -30,6 +29,7 @@ const Todo: React.FC<ITodoProps> = ({
     cancelEdit,
     update,
     deleteTodo,
+    resetTodo,
   } = useTodo(index);
 
   // Condtionally display depending on manage/edit status
@@ -38,21 +38,26 @@ const Todo: React.FC<ITodoProps> = ({
       {display === TodoDisplay.VIEW && (
         <div className="inner view" onClick={complete}>
           <div className="title">{title}</div>
-          <div className="content">
-            {completed > 0 && completed}
-          </div>
+          <TodoComplete
+            title={title}
+            type={type}
+            completed={completed}
+          />
         </div>
       )}
       {display === TodoDisplay.MANAGE && (
         <div className="inner manage">
           <div className="title">{title}</div>
           <div className="actions">
+            <DeleteConfirm onClick={deleteTodo} css={deleteBtn} message={`Delete "${title}" todo?`}>
+              <FaTimes />
+            </DeleteConfirm>
+            <DeleteConfirm onClick={resetTodo} css={resetBtn} message={`Reset "${title}" todo?`}>
+              <FaEraser />
+            </DeleteConfirm>
             <Button onClick={edit}>
               <FaEdit />
             </Button>
-            <DeleteConfirm onClick={deleteTodo} css={cancelBtn} message={`Delete "${title}" todo?`}>
-              <FaTimes />
-            </DeleteConfirm>
           </div>
         </div>
       )}

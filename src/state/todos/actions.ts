@@ -11,3 +11,4 @@ export const updateTodo = createAction('@todos/UPDATE',
   ac => (idx: number, data: Omit<ITodo, 'completed'>) => ac({ idx, data })
 );
 export const completeTodo = createAction('@todos/COMPLETE', ac => (idx: number) => ac(idx));
+export const resetTodo = createAction('@todos/RESET', ac => (idx: number) => ac(idx));

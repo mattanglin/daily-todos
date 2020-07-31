@@ -42,8 +42,12 @@ export default (theme: Theme): CSSObject => ({
   }
 });
 
-export const cancelBtn = (theme: Theme): CSSObject => ({
+export const deleteBtn = (theme: Theme): CSSObject => ({
   backgroundColor: theme.palette.danger,
   color: theme.palette.dangerOffset,
-  borderColor: 'magenta'
+});
+
+export const resetBtn = (theme: Theme): CSSObject => ({
+  backgroundColor: theme.palette.warning,
+  color: theme.palette.warningOffset,
 });

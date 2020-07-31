@@ -4,6 +4,8 @@ export const palette = {
   brandOffset: '#ffffff',
   success: '#4caf50',
   successOffset: '#ffffff',
+  warning: '#ff9800',
+  warningOffset: '#ffffff',
   danger: '#f44336',
   dangerOffset: '#ffffff',
 }

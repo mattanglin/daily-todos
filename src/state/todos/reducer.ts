@@ -8,6 +8,7 @@ import {
   deleteTodo,
   updateTodo,
   completeTodo,
+  resetTodo,
 } from './actions';
 import { ITodosState, TodoType } from './types';
 
@@ -120,6 +121,25 @@ const reducer = createReducer<ITodosState, RootAction>(getInitialState())
           {
             ...todo,
             completed: todo.completed + 1,
+          },
+          ...state.todos.slice(todoIdx + 1),
+        ]
+      };
+    }
+    return state;
+  })
+  .handleAction(resetTodo, (state, action) => {
+    const todoIdx = action.payload;
+    const todo = state.todos[todoIdx];
+
+    if (todo) {
+      return {
+        ...state,
+        todos: [
+          ...state.todos.slice(0, todoIdx),
+          {
+            ...todo,
+            completed: 0,
           },
           ...state.todos.slice(todoIdx + 1),
         ]

@@ -37,6 +37,7 @@ export const useTodo = (idx: number) => {
   }, [dispatch, idx]);
 
   const deleteTodo = useCallback(() => dispatch(actions.deleteTodo(idx)), [dispatch, idx]);
+  const resetTodo = useCallback(() => dispatch(actions.resetTodo(idx)), [dispatch, idx]);
 
   const complete = useCallback(() => {
     dispatch(actions.completeTodo(idx));
@@ -53,6 +54,7 @@ export const useTodo = (idx: number) => {
     cancelEdit,
     update,
     deleteTodo,
+    resetTodo,
     complete,
   }
 };
