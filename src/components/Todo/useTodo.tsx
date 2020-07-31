@@ -1,8 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions, selectors, ITodo } from 'state/todos';
-import Todo from './Todo';
-// import { ITodo } from 'state/todos';
 
 export enum TodoDisplay {
   EDIT = 'EDIT',

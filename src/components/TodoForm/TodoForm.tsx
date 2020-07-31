@@ -1,7 +1,12 @@
 import React from 'react';
-import { ITodo } from 'state/todos';
+import { ITodo, TodoType } from 'state/todos';
 import { Button } from 'components';
-import { Form, Input, SubmitButton } from 'components/form';
+import {
+  Form,
+  Input,
+  Select,
+  SubmitButton
+} from 'components/form';
 import style, { cancelBtnStyle} from './TodoForm.style';
 import { DeepPartial } from 'react-hook-form';
 
@@ -31,7 +36,14 @@ const TodoForm: React.FC<ITodoFormProps> = ({
             <Input name="title" placeholder="Todo Title" />
           </div>
           <div className="content">
-            <Input name="type" type="hidden" />
+            <Select
+              name="type"
+              options={[
+                { value: TodoType.BASIC, label: 'Basic Todo' },
+                { value: TodoType.MULTIPLE, label: 'Multiple Todo' },
+                { value: TodoType.TARGET, label: 'Target Count Todo' },
+              ]}
+            />
           </div>
         </div>
         <div className="actions">

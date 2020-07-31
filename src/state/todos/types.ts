@@ -1,7 +1,7 @@
 export enum TodoType {
   BASIC = 'BASIC',
-  // MULTIPLE
-  // TARGET_COUNT
+  MULTIPLE = 'MULTIPLE',
+  TARGET = 'TARGET',
 }
 
 export interface ITodo {

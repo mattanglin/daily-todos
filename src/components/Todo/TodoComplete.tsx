@@ -16,6 +16,23 @@ const TodoComplete: React.FC<ITodo> = ({
           <FaCheckCircle />
         </div>
       )}
+      {type === TodoType.MULTIPLE && (
+        <div className={cx('multiple', { complete: completed > 0})}>
+          {completed < 6 ? Array.from({ length: completed }).map(idx => (
+            <div className="icon check complete">
+              <FaCheckCircle />
+            </div>
+          ))
+          : (
+            <>
+              <div className="count icon check complete">{completed}</div>
+              <div className="icon check complete">
+                <FaCheckCircle />
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };
