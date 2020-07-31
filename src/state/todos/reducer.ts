@@ -1,7 +1,7 @@
 import { RootAction } from 'state-types';
 import { createReducer } from 'typesafe-actions';
 import {
-  doTodo,
+  doTodo, addTodo,
 } from './actions';
 import { ITodosState, TodoType } from './types';
 
@@ -16,8 +16,8 @@ export const defaultInitialState: ITodosState = {
   }],
 }
 
+// Get reducer initial state conditionally from localStorage
 export const getInitialState = (): ITodosState => {
-  // TODO: load initial state
   const todosJSON = window.localStorage.getItem('todos');
 
   if (todosJSON) {
@@ -52,8 +52,17 @@ export const getInitialState = (): ITodosState => {
 }
 
 // Reducer
-
 const reducer = createReducer<ITodosState, RootAction>(getInitialState())
+  .handleAction(addTodo, (state, action) => ({
+    ...state,
+    todos: [
+      ...state.todos,
+      {
+        ...action.payload,
+        todoDone: 0,
+      }
+    ]
+  }))
   .handleAction(doTodo, (state, action) => {
     const todoIdx = action.payload;
     const todo = state.todos[todoIdx];
