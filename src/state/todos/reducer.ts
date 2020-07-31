@@ -2,6 +2,7 @@ import { RootAction } from 'state-types';
 import { createReducer } from 'typesafe-actions';
 import {
   setManaging,
+  updateTitle,
   setEditing,
   addTodo,
   deleteTodo,
@@ -62,6 +63,10 @@ const reducer = createReducer<ITodosState, RootAction>(getInitialState())
     ...state,
     managing: action.payload,
     editing: !action.payload ? undefined : state.editing,
+  }))
+  .handleAction(updateTitle, (state, action) => ({
+    ...state,
+    title: action.payload,
   }))
   .handleAction(setEditing, (state, action) => ({
     ...state,

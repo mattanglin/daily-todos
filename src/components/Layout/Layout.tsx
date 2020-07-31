@@ -1,6 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectors } from 'state/todos';
+import TodosTitle from 'components/TodosTitle/TodosTitle';
 import ManageButton from 'components/ManageButton/ManageButton';
 import style from './Layout.style';
 
@@ -9,12 +8,10 @@ export interface ILayoutProps {
 }
 
 const Layout: React.FC<ILayoutProps> = ({ children }) => {
-  const title = useSelector(selectors.getTitle);
-
   return (
     <div css={style}>
       <div className="header">
-        <h1>{title}</h1>
+        <TodosTitle />
         <div className="settings-btn">
           <ManageButton />
         </div>
