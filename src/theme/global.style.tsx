@@ -1,7 +1,7 @@
 import React from 'react';
-import { Global, css } from '@emotion/core';
+import { Global, css, CSSObject } from '@emotion/core';
 
-const styles = {
+const styles: CSSObject = {
   html: {
     minHeight: '100%',
   },
@@ -27,7 +27,8 @@ const styles = {
   // TODO: Global heading styles
   h1: {
     margin: 0,
-    fontSize: 28
+    fontSize: 28,
+    textAlign: 'center',
   }
 };
 

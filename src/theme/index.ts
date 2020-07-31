@@ -2,6 +2,7 @@
 import { height } from './height'
 import { mediaQuery } from './mediaQuery';
 import { padding } from './padding';
+import { palette } from './palette';
 import { width } from './width';
 import { zIndex } from './zIndex';
 
@@ -9,6 +10,7 @@ const theme = {
   height,
   mediaQuery,
   padding,
+  palette,
   width,
   zIndex,
 }

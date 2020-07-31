@@ -13,7 +13,12 @@ export default (theme: Theme): CSSObject => ({
     width: '100%',
     height: theme.height.header,
     zIndex: theme.zIndex.header,
-    background: 'red',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.palette.brand,
+    color: theme.palette.brandText,
   },
 
   '& .navigation': {
@@ -28,7 +33,6 @@ export default (theme: Theme): CSSObject => ({
 
   '& .main': {
     minHeight: '100%',
-    background: 'magenta',
     position: 'relative',
     zIndex: theme.zIndex.main,
 
