@@ -23,6 +23,7 @@ const Todo: React.FC<ITodoProps> = ({
     title,
     completed,
     type,
+    target,
     display,
     complete,
     edit,
@@ -42,6 +43,7 @@ const Todo: React.FC<ITodoProps> = ({
             title={title}
             type={type}
             completed={completed}
+            target={target}
           />
         </div>
       )}
@@ -65,7 +67,7 @@ const Todo: React.FC<ITodoProps> = ({
         <TodoForm
           onSubmit={update}
           onCancel={cancelEdit}
-          defaultValues={{ title, type }}
+          defaultValues={{ title, type, target }}
         />
       )}
     </div>

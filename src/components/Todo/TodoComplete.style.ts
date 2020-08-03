@@ -21,7 +21,7 @@ export default (theme: Theme): CSSObject => ({
     },
   },
 
-  '& .multiple': {
+  '& .multiple, & .target': {
     display: 'flex',
     justifyContent: 'flex-end',
   },

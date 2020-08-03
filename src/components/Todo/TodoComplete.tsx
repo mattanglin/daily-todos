@@ -7,6 +7,7 @@ import style from './TodoComplete.style';
 const TodoComplete: React.FC<ITodo> = ({
   type,
   completed,
+  target = 0,
 }) => {
 
   return (
@@ -18,8 +19,8 @@ const TodoComplete: React.FC<ITodo> = ({
       )}
       {type === TodoType.MULTIPLE && (
         <div className={cx('multiple', { complete: completed > 0})}>
-          {completed < 6 ? Array.from({ length: completed }).map(idx => (
-            <div className="icon check complete">
+          {completed < 6 ? Array.from({ length: completed }).map((_, idx) => (
+            <div key={idx} className="icon check complete">
               <FaCheckCircle />
             </div>
           ))
@@ -27,6 +28,24 @@ const TodoComplete: React.FC<ITodo> = ({
             <>
               <div className="count icon check complete">{completed}</div>
               <div className="icon check complete">
+                <FaCheckCircle />
+              </div>
+            </>
+          )}
+        </div>
+      )}
+      {type === TodoType.TARGET && (
+        <div className={cx('target', { complete: completed >= target })}>
+          {target < 6 ? Array.from({ length: target }).map((_, idx) => (
+            <div key={idx} className={cx('icon check', { complete: idx >= (target - completed) })}>
+              <FaCheckCircle />
+            </div>
+          )) : (
+            <>
+              <div className={cx('count icon check', { complete: completed >= target })}>
+                {Math.min(completed, target)} / {target}
+              </div>
+              <div className={cx('count icon check', { complete: completed >= target })}>
                 <FaCheckCircle />
               </div>
             </>

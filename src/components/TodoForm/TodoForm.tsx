@@ -7,6 +7,7 @@ import {
   Select,
   SubmitButton
 } from 'components/form';
+import ConditionalInputs from './ConditionalInputs';
 import style, { cancelBtnStyle} from './TodoForm.style';
 import { DeepPartial } from 'react-hook-form';
 
@@ -44,6 +45,7 @@ const TodoForm: React.FC<ITodoFormProps> = ({
                 { value: TodoType.TARGET, label: 'Target Count Todo' },
               ]}
             />
+            <ConditionalInputs />
           </div>
         </div>
         <div className="actions">

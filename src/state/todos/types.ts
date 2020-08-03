@@ -8,8 +8,8 @@ export interface ITodo {
   title: string;
   type: TodoType;
   completed: number;
+  target?: number;
   // TODO: Additional properties based on type
-  // target?: number;
   // Custom repeat (other than daily)?
   // track history?
 }

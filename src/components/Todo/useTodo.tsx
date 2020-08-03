@@ -46,6 +46,7 @@ export const useTodo = (idx: number) => {
     title: todo.title,
     type: todo.type,
     completed: todo.completed,
+    target: todo.target,
     // Other
     display,
     edit,
