@@ -39,6 +39,7 @@
     "eject": "react-app-rewired eject",
     "tsc": "tsc"
   },
+  "homepage": "./",
   "eslintConfig": {
     "extends": "react-app"
   },
