@@ -10,6 +10,7 @@ const {
   middleware: routerMiddleware,
   reducer,
 } = connectRoutes(routesMap, {
+  basename: process.env.NODE_ENV === 'production' ? '/daily-todos' : '',
   onBeforeChange,
   restoreScroll: restoreScroll(),
 });
